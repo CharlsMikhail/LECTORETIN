@@ -1,0 +1,17 @@
+class ASIGNATURA
+types
+-- TODO Define types here
+string = seq of char;
+values
+-- TODO Define values here
+instance variables
+-- TODO Define instance variables here
+private nombre : string := "aea";
+
+operations
+-- TODO Define operations here
+functions
+-- TODO Define functions here
+traces
+-- TODO Define Combinatorial Tst Traces here
+end ASIGNATURA
