@@ -1,3 +1,6 @@
+-- Proyecto :LECTORETIN
+-- Integrantes: Abel Luciano Aragon Alvaro y Carlos Mijail Mamani Anccasi
+
 class Asignatura
     --types
     --Hora = nat * nat;
@@ -41,6 +44,7 @@ class EstudianteRetina
 
 end EstudianteRetina
 
+-- Revisar
 class LectorRetina 
 
     instance variables
@@ -50,7 +54,7 @@ class LectorRetina
     public LectorRetina: EstudianteRetina ==> LectorRetina
     LectorRetina(estudiante) ==
       (retina := estudiante;
-       return self)
+       return self;)
     pre estudiante <> nil;
 
 end LectorRetina
@@ -64,11 +68,41 @@ class Sistema
     public Sistema: () ==> Sistema
     Sistema() ==
       (lectorRetina := {};
-       return self)
+       return self);
+
+    public actualizarRetinas: () ==> ()
+    actualizarRetinas() ==
+      /* Lógica para actualizar las retinas de los estudiantes, por ejemplo,
+         consultar una base de datos de estudiantes y actualizar la información. */
+      skip;
+
+    public guardarRetinas: () ==> ()
+    guardarRetinas() ==
+      /* Lógica para guardar la información de las retinas en un sistema de almacenamiento, 
+         por ejemplo, una base de datos o un archivo. */
+      skip;
+
 
 end Sistema
 
 class Alarma
+
+    instance variables
+    activada: bool
+
+    operations
+    public Alarma: () ==> Alarma
+    Alarma() ==
+      (activada := false;
+       return self);
+
+    public activar: () ==> ()
+    activar() ==
+      (activada := true);
+
+    public desactivar: () ==> ()
+    desactivar() ==
+      (activada := false);
 
 end Alarma
 
@@ -111,7 +145,7 @@ class RegistroAsistencia
        asignatura := a;
        return self)
     pre cod > 0;
-
+    
 end RegistroAsistencia
 
 
