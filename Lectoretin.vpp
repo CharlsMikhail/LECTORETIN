@@ -46,12 +46,25 @@ class LectorRetina
     instance variables
     retina: EstudianteRetina;
 
+    operations
+    public LectorRetina: EstudianteRetina ==> LectorRetina
+    LectorRetina(estudiante) ==
+      (retina := estudiante;
+       return self)
+    pre estudiante <> nil;
+
 end LectorRetina
 
 class Sistema 
     
     instance variables
     lectorRetina: set of LectorRetina;
+
+    operations
+    public Sistema: () ==> Sistema
+    Sistema() ==
+      (lectorRetina := {};
+       return self)
 
 end Sistema
 
@@ -61,9 +74,20 @@ end Alarma
 
 class Docente
 
+    types
+    String = seq of char;
+
     instance variables
-    nombre: seq of char;
-    dni: seq of char;
+    nombre: String;
+    dni: String;
+
+    operations
+    public Docente: String * String ==> Docente
+    Docente(n, d) ==
+      (nombre := n;
+       dni := d;
+       return self)
+    pre len(n) > 0 and len(d) = 8;
 
 end Docente
 
@@ -72,10 +96,21 @@ class RegistroAsistencia
     Fecha = nat1 * nat1 * nat1;
     instance variables
     codigo: nat;
-    semestre: seq of char;
+    semestre: nat1;
     fecha: Fecha;
     docente: Docente;
     asignatura: Asignatura;
+
+    operations
+    public RegistroAsistencia: nat * nat1 * Fecha * Docente * Asignatura ==> RegistroAsistencia
+    RegistroAsistencia(cod, sem, fec, d, a) ==
+      (codigo := cod;
+       semestre := sem;
+       fecha := fec;
+       docente := d;
+       asignatura := a;
+       return self)
+    pre cod > 0;
 
 end RegistroAsistencia
 
