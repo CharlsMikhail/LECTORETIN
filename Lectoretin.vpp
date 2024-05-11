@@ -1,0 +1,69 @@
+class Asignatura
+    
+    instance variables
+    nombreAsignatura: seq of char;
+    horaInicio: nat * nat * nat;
+    horaFin: nat * nat * nat;
+
+end Asignatura 
+
+class EstudianteRetina
+
+    instance variables
+    nombre: seq of char;
+    dni: seq of char;
+    semestre: seq of char;
+    asignaturas: set of Asignatura
+
+end EstudianteRetina
+
+class LectorRetina 
+
+    instance variables
+    retina: EstudianteRetina;
+
+end LectorRetina
+
+class Sistema 
+    
+    instance variables
+    lectorRetina: set of LectorRetina;
+
+end Sistema
+
+class Alarma
+
+end Alarma
+
+class Docente
+
+    instance variables
+    nombre: seq of char;
+    dni: seq of char;
+
+end Docente
+
+class RegistroAsistencia
+
+    instance variables
+    codigo: nat;
+    semestre: seq of char;
+    fecha: nat * nat * nat;
+    docente: Docente;
+    asignatura: Asignatura;
+
+end RegistroAsistencia
+
+
+
+
+
+
+
+
+
+
+
+
+
+
