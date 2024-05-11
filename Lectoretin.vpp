@@ -1,19 +1,43 @@
 class Asignatura
-    
+    types
+    Hora = nat * nat;
+    String = seq of char;
     instance variables
-    nombreAsignatura: seq of char;
-    horaInicio: nat * nat * nat;
-    horaFin: nat * nat * nat;
+    nombreAsignatura: String;
+    horaInicio: Hora;
+    horaFin: Hora;
+
+    operations
+    public Asignatura: String * Hora * Hora ==> Asignatura
+    Asignatura(na, hi, hf) ==
+      (nombreAsignatura := na;
+       horaInicio := hi;
+       horaFin := hf;
+       return self)
+    pre len(na) > 0;
 
 end Asignatura 
 
 class EstudianteRetina
 
+    types
+    String = seq of char;
+
     instance variables
-    nombre: seq of char;
-    dni: seq of char;
-    semestre: seq of char;
+    nombre: String;
+    dni: String;
+    semestre: String;
     asignaturas: set of Asignatura
+
+    operations
+    public EstudianteRetina: String * String * String ==> EstudianteRetina
+    EstudianteRetina(n, d, s) ==
+      (nombre := n;
+       dni := d;
+       semestre := s;
+       asignaturas := {};
+       return self)
+    pre len(n) > 0 and len(d) > 0 and len(s) > 0;
 
 end EstudianteRetina
 
@@ -44,11 +68,12 @@ class Docente
 end Docente
 
 class RegistroAsistencia
-
+    types
+    Fecha = nat1 * nat1 * nat1;
     instance variables
     codigo: nat;
     semestre: seq of char;
-    fecha: nat * nat * nat;
+    fecha: Fecha;
     docente: Docente;
     asignatura: Asignatura;
 
