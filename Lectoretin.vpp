@@ -1,14 +1,14 @@
 class Asignatura
-    types
-    Hora = nat * nat;
-    String = seq of char;
+    --types
+    --Hora = nat * nat;
+    --String = seq of char;
     instance variables
-    nombreAsignatura: String;
-    horaInicio: Hora;
-    horaFin: Hora;
+    nombreAsignatura: seq of char;
+    horaInicio: nat * nat;
+    horaFin: nat * nat;
 
     operations
-    public Asignatura: String * Hora * Hora ==> Asignatura
+    public Asignatura: seq of char * (nat * nat) * (nat * nat) ==> Asignatura
     Asignatura(na, hi, hf) ==
       (nombreAsignatura := na;
        horaInicio := hi;
@@ -20,17 +20,17 @@ end Asignatura
 
 class EstudianteRetina
 
-    types
-    String = seq of char;
+    --types
+    --String = seq of char;
 
     instance variables
-    nombre: String;
-    dni: String;
-    semestre: String;
+    nombre: seq of char;
+    dni: seq of char;
+    semestre: seq of char;
     asignaturas: set of Asignatura
 
     operations
-    public EstudianteRetina: String * String * String ==> EstudianteRetina
+    public EstudianteRetina: seq of char * seq of char * seq of char ==> EstudianteRetina
     EstudianteRetina(n, d, s) ==
       (nombre := n;
        dni := d;
@@ -44,7 +44,7 @@ end EstudianteRetina
 class LectorRetina 
 
     instance variables
-    retina: EstudianteRetina;
+    retina: EstudianteRetina; -- Aqui el verficador de tipos
 
     operations
     public LectorRetina: EstudianteRetina ==> LectorRetina
@@ -74,15 +74,15 @@ end Alarma
 
 class Docente
 
-    types
-    String = seq of char;
+    --types
+    --String = seq of char;
 
     instance variables
-    nombre: String;
-    dni: String;
+    nombre: seq of char;
+    dni: seq of char;
 
     operations
-    public Docente: String * String ==> Docente
+    public Docente: seq of char * seq of char ==> Docente
     Docente(n, d) ==
       (nombre := n;
        dni := d;
@@ -92,17 +92,17 @@ class Docente
 end Docente
 
 class RegistroAsistencia
-    types
-    Fecha = nat1 * nat1 * nat1;
+    --types
+    --Fecha = nat1 * nat1 * nat1;
     instance variables
     codigo: nat;
     semestre: nat1;
-    fecha: Fecha;
+    fecha: nat1 * nat1 * nat1;
     docente: Docente;
     asignatura: Asignatura;
 
     operations
-    public RegistroAsistencia: nat * nat1 * Fecha * Docente * Asignatura ==> RegistroAsistencia
+    public RegistroAsistencia: nat * nat1 * (nat1 * nat1 * nat1) * Docente * Asignatura ==> RegistroAsistencia
     RegistroAsistencia(cod, sem, fec, d, a) ==
       (codigo := cod;
        semestre := sem;
