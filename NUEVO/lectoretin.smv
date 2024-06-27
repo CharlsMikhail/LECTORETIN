@@ -1,0 +1,57 @@
+MODULE main
+VAR
+  estado: {En_espera, Verificacion_de_retina, Pertenece, No_pertenece, AlarmaActiva};
+  estaActivadaAlarma: boolean;
+  estaActivadoLector: boolean;
+  entradaIndividuoRetina: boolean; -- simplificado como boolean para este ejemplo
+  estudiantesRetina: boolean; -- simplificado como boolean para este ejemplo
+
+ASSIGN
+  init(estado) := En_espera;
+  init(estaActivadaAlarma) := FALSE;
+  init(estaActivadoLector) := FALSE;
+  init(entradaIndividuoRetina) := FALSE;
+  init(estudiantesRetina) := TRUE; -- suponemos que hay un estudiante registrado
+
+TRANS
+  case
+    -- Transición de En_espera a Verificacion_de_retina
+    estado = En_espera & estaActivadoLector = TRUE : next(estado) = Verificacion_de_retina;
+    
+    -- Verificación de retina
+    estado = Verificacion_de_retina & entradaIndividuoRetina = estudiantesRetina : next(estado) = Pertenece;
+    estado = Verificacion_de_retina & entradaIndividuoRetina != estudiantesRetina : next(estado) = No_pertenece;
+
+    -- Transición de No_pertenece a AlarmaActiva
+    estado = No_pertenece : next(estado) = AlarmaActiva;
+
+    -- Retorno de AlarmaActiva a En_espera
+    estado = AlarmaActiva : next(estado) = En_espera;
+
+    -- Mantener estado actual por defecto
+    TRUE : next(estado) = estado;
+  esac;
+
+TRANS
+  case
+    -- Activar alarma en estado No_pertenece
+    estado = No_pertenece : next(estaActivadaAlarma) = TRUE;
+    
+    -- Desactivar alarma al retornar a En_espera
+    estado = AlarmaActiva : next(estaActivadaAlarma) = FALSE;
+
+    -- Mantener estado actual por defecto
+    TRUE : next(estaActivadaAlarma) = estaActivadaAlarma;
+  esac;
+
+TRANS
+  case
+    -- Activar lector en estado En_espera
+    estado = En_espera : next(estaActivadoLector) = TRUE;
+
+    -- Desactivar lector en otros estados
+    estado != En_espera : next(estaActivadoLector) = FALSE;
+
+    -- Mantener estado actual por defecto
+    TRUE : next(estaActivadoLector) = estaActivadoLector;
+  esac;
