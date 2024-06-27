@@ -1,0 +1,441 @@
+class Docente
+types
+  public String = seq of char;
+instance variables
+  nombre: String := "";
+  dni: String := "";
+operations
+  -- Constructor por defecto
+  public Docente: () ==> Docente
+  Docente() == (
+    nombre := "";
+    dni := "";
+  );
+
+  -- Métodos para obtener y establecer el nombre
+  public getNombre: () ==> String
+  getNombre() == (
+    return nombre;
+  );
+
+  public setNombre: String ==> ()
+  setNombre(nom) == (
+    nombre := nom;
+  );
+
+  -- Métodos para obtener y establecer el DNI
+  public getDni: () ==> String
+  getDni() == (
+    return dni;
+  );
+
+  public setDni: String ==> ()
+  setDni(d) == (
+    dni := d;
+  )
+end Docente
+
+class Asignatura
+types
+  public HorarioRecord :: dia: nat1 horaInicio: nat1 horaFin: nat1
+  inv mk_HorarioRecord(d, hi, hf) == d <= 7 and hi <= 24 and hf <= 24;
+  public String = seq of char;
+  public SetOfEstudiantes = set of Estudiante;
+instance variables
+  codigo: nat := 0;
+  nombre: String := "";
+  public horario: HorarioRecord := mk_HorarioRecord(1, 8, 10);
+  docente: Docente := new Docente();
+  estudiantes: SetOfEstudiantes := {};
+operations
+  -- Constructor por defecto
+  public Asignatura: () ==> Asignatura
+  Asignatura() == (
+    codigo := 0;
+    nombre := "";
+    horario := mk_HorarioRecord(1, 8, 10);
+    docente := new Docente();
+    estudiantes := {};
+  );
+
+  -- Métodos para obtener y establecer el código
+  public getCodigo: () ==> nat
+  getCodigo() == (
+    return codigo;
+  );
+
+  public setCodigo: nat ==> ()
+  setCodigo(cod) == (
+    codigo := cod;
+  );
+
+  -- Métodos para obtener y establecer el nombre
+  public getNombre: () ==> String
+  getNombre() == (
+    return nombre;
+  );
+
+  public setNombre: String ==> ()
+  setNombre(nom) == (
+    nombre := nom;
+  );
+
+  -- Métodos para obtener y establecer el horario
+  public getHorario: () ==> HorarioRecord
+  getHorario() == (
+    return horario;
+  );
+
+  public setHorario: HorarioRecord ==> ()
+  setHorario(hor) == (
+    horario := hor;
+  );
+
+  -- Métodos para obtener y establecer el docente
+  public getDocente: () ==> Docente
+  getDocente() == (
+    return docente;
+  );
+
+  public setDocente: Docente ==> ()
+  setDocente(doc) == (
+    docente := doc;
+  );
+
+  -- Métodos para gestionar estudiantes
+  public agregarEstudiante: Estudiante ==> ()
+  agregarEstudiante(est) == (
+    estudiantes := estudiantes union {est};
+  );
+
+  public eliminarEstudiante: Estudiante ==> ()
+  eliminarEstudiante(est) == (
+    estudiantes := estudiantes \ {est};
+  );
+
+  public obtenerEstudiantes: () ==> SetOfEstudiantes
+  obtenerEstudiantes() == (
+    return estudiantes;
+  )
+end Asignatura
+
+class Estudiante
+types
+  public String = seq of char;
+  public SetOfAsignatura = set of Asignatura;
+  public SeqOfChar = seq of char;
+instance variables
+  nombre: String := "";
+  dni: String := "";
+  semestre: nat1 := 1;
+  asignaturas: SetOfAsignatura := {};
+  datoRetina: SeqOfChar := [];
+operations
+  -- Constructor por defecto
+  public Estudiante: () ==> Estudiante
+  Estudiante() == (
+    nombre := "";
+    dni := "";
+    semestre := 1;
+    asignaturas := {};
+    datoRetina := [];
+  );
+
+  -- Métodos para obtener y establecer el nombre
+  public getNombre: () ==> String
+  getNombre() == (
+    return nombre;
+  );
+
+  public setNombre: String ==> ()
+  setNombre(nom) == (
+    nombre := nom;
+  );
+
+  -- Métodos para obtener y establecer el DNI
+  public getDni: () ==> String
+  getDni() == (
+    return dni;
+  );
+
+  public setDni: String ==> ()
+  setDni(d) == (
+    dni := d;
+  );
+
+  -- Métodos para obtener y establecer el semestre
+  public getSemestre: () ==> nat1
+  getSemestre() == (
+    return semestre;
+  );
+
+  public setSemestre: nat1 ==> ()
+  setSemestre(sem) == (
+    semestre := sem;
+  );
+
+  -- Métodos para gestionar asignaturas
+  public agregarAsignatura: Asignatura ==> ()
+  agregarAsignatura(asig) == (
+    asignaturas := asignaturas union {asig};
+  );
+
+  public eliminarAsignatura: Asignatura ==> ()
+  eliminarAsignatura(asig) == (
+    asignaturas := asignaturas \ {asig};
+  );
+
+  public obtenerAsignaturas: () ==> SetOfAsignatura
+  obtenerAsignaturas() == (
+    return asignaturas;
+  );
+
+  -- Métodos para obtener y establecer el dato de retina
+  public getDatoRetina: () ==> SeqOfChar
+  getDatoRetina() == (
+    return datoRetina;
+  );
+
+  public setDatoRetina: SeqOfChar ==> ()
+  setDatoRetina(dato) == (
+    datoRetina := dato;
+  )
+end Estudiante
+
+class LectorRetina
+types
+  public SeqOfChar = seq of char;
+instance variables
+  codigoLector: nat := 0;
+  alarma: Alarma := new Alarma();
+operations
+  -- Constructor por defecto
+  public LectorRetina: () ==> LectorRetina
+  LectorRetina() == (
+    codigoLector := 0;
+    alarma := new Alarma();
+  );
+
+  -- Métodos para obtener y establecer el código del lector
+  public getCodigoLector: () ==> nat
+  getCodigoLector() == (
+    return codigoLector;
+  );
+
+  public setCodigoLector: nat ==> ()
+  setCodigoLector(cod) == (
+    codigoLector := cod;
+  );
+
+  -- Métodos para obtener y establecer la alarma
+  public getAlarma: () ==> Alarma
+  getAlarma() == (
+    return alarma;
+  );
+
+  public setAlarma: Alarma ==> ()
+  setAlarma(al) == (
+    alarma := al;
+  );
+
+  -- Método para verificar retina (simulación)
+  public verificarRetina: SeqOfChar ==> bool
+  verificarRetina(dato) == (
+    if (dato <> [])
+    then return true
+    else (
+      alarma.setEstado(true);
+      return false
+    );
+  )
+end LectorRetina
+class Alarma
+instance variables
+    estado: bool := false;
+operations
+  -- Constructor por defecto
+  public Alarma: () ==> Alarma
+  Alarma() == (
+    estado := false;
+  );
+
+  -- Métodos para obtener y establecer el estado
+  public getEstado: () ==> bool
+  getEstado() == (
+    return estado;
+  );
+
+  public setEstado: bool ==> ()
+  setEstado(est) == (
+    estado := est;
+  );
+
+  -- Método para activar la alarma
+  public activar: () ==> ()
+  activar() == (
+    estado := true;
+  );
+
+  -- Método para desactivar la alarma
+  public desactivar: () ==> ()
+  desactivar() == (
+    estado := false;
+  )
+end Alarma
+
+class RegistroAsistencia
+types
+  public SeqOfChar = seq of char;
+  public Fecha = nat1 * nat1 * nat1 -- día, mes, año
+  inv mk_(d, m, y) == d <= 31 and m <= 12 and y >= 2024;
+instance variables
+  codigo: nat := 0;
+  semestre: nat1 := 1;
+  asignatura: Asignatura := new Asignatura();
+  fecha: Fecha := mk_(1, 1, 2025); -- Inicializamos la fecha con un valor por defecto
+  lector: LectorRetina := new LectorRetina();
+operations
+  -- Constructor por defecto
+  public RegistroAsistencia: () ==> RegistroAsistencia
+  RegistroAsistencia() == (
+    codigo := 0;
+    semestre := 1;
+    asignatura := new Asignatura();
+    fecha := mk_(1, 1, 2025);
+    lector := new LectorRetina();
+  );
+
+  -- Métodos para obtener y establecer el código
+  public getCodigo: () ==> nat
+  getCodigo() == (
+    return codigo;
+  );
+
+  public setCodigo: nat ==> ()
+  setCodigo(cod) == (
+    codigo := cod;
+  );
+
+  -- Métodos para obtener y establecer el semestre
+  public getSemestre: () ==> nat1
+  getSemestre() == (
+    return semestre;
+  );
+
+  public setSemestre: nat1 ==> ()
+  setSemestre(sem) == (
+    semestre := sem;
+  );
+
+  -- Métodos para obtener y establecer la asignatura
+  public getAsignatura: () ==> Asignatura
+  getAsignatura() == (
+    return asignatura;
+  );
+
+  public setAsignatura: Asignatura ==> ()
+  setAsignatura(asig) == (
+    asignatura := asig;
+  );
+
+  -- Métodos para obtener y establecer la fecha
+  public getFecha: () ==> Fecha
+  getFecha() == (
+    return fecha;
+  );
+
+  public setFecha: Fecha ==> ()
+  setFecha(f) == (
+    fecha := f;
+  );
+
+  -- Métodos para obtener y establecer el lector
+  public getLector: () ==> LectorRetina
+  getLector() == (
+    return lector;
+  );
+
+  public setLector: LectorRetina ==> ()
+  setLector(lec) == (
+    lector := lec;
+  );
+
+  -- Método para registrar asistencia (simulación)
+  public registrarAsistencia: SeqOfChar ==> bool
+  registrarAsistencia(dato) == (
+    return lector.verificarRetina(dato);
+  )
+end RegistroAsistencia
+
+class Sistema
+instance variables
+  public estado: bool := false;
+operations
+  -- Constructor por defecto
+  public Sistema: () ==> Sistema
+  Sistema() == (
+    estado := false;
+  );
+
+  -- Método para obtener y establecer el estado
+  public getEstado: () ==> bool
+  getEstado() == (
+    return estado;
+  );
+
+  public setEstado: bool ==> ()
+  setEstado(est) == (
+    estado := est;
+  );
+
+  -- Método para activar el sistema
+  public activar: () ==> ()
+  activar() == (
+    estado := true;
+  );
+
+  -- Método para desactivar el sistema
+  public desactivar: () ==> ()
+  desactivar() == (
+    estado := false;
+  )
+end Sistema
+
+-- TEST DE COVETURA:
+
+class TestCases
+instance variables
+  alarma: Alarma := new Alarma();
+  docente: Docente := new Docente();
+  sistema: Sistema := new Sistema();
+  asignatura: Asignatura := new Asignatura();
+  estudianteRetina: Estudiante := new Estudiante();
+  lectorRetina: LectorRetina := new LectorRetina();
+  registroAsistencia: RegistroAsistencia := new RegistroAsistencia();
+
+operations
+
+  public TestCases: () ==> TestCases
+  TestCases() ==
+    (
+      docente.setNombre("Juan Perez");
+      docente.setDni("12345678");
+
+      sistema.setEstado(true); -- Activamos el sistema para probar
+
+      asignatura.setNombre("Matemáticas");
+
+      estudianteRetina.setNombre("Ana Gomez");
+      estudianteRetina.setDni("87654321");
+      estudianteRetina.setSemestre(1);
+
+
+      registroAsistencia.setCodigo(1);
+      registroAsistencia.setSemestre(1);
+      registroAsistencia.setFecha(mk_(2, 5, 2025));
+
+      return self
+    );
+
+end TestCases
+
